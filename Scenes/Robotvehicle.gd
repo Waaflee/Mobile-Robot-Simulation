@@ -75,12 +75,12 @@ func backwards() -> float:
 func left() -> float:
 	$VehicleWheel_Left.use_as_traction = true
 	$VehicleWheel_Right.use_as_traction = false
-	return 1.0
+	return 1.2
 
 func right() -> float:
 	$VehicleWheel_Left.use_as_traction = false
 	$VehicleWheel_Right.use_as_traction = true
-	return 1.0
+	return 1.2
 
 func elevate_shovel(delta: float) -> void:
 	if $RobotShovel.rotation.z > -PI/6:
