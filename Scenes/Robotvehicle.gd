@@ -34,22 +34,13 @@ func _physics_process(delta):
 	
 	# overrules for keyboard
 	if Input.is_action_pressed("ui_up"):
-		$VehicleWheel_Left.use_as_traction = true
-		$VehicleWheel_Right.use_as_traction = true
-		throttle_val = 1.0
+		throttle_val = forward()
 	if Input.is_action_pressed("ui_down"):
-		$VehicleWheel_Left.use_as_traction = true
-		$VehicleWheel_Right.use_as_traction = true
-#		brake_val = 1.0
-		throttle_val = -1.0
+		throttle_val = backwards()
 	if Input.is_action_pressed("ui_left"):
-		$VehicleWheel_Left.use_as_traction = false
-		$VehicleWheel_Right.use_as_traction = true
-		throttle_val = 1.0
+		throttle_val = left()
 	elif Input.is_action_pressed("ui_right"):
-		$VehicleWheel_Left.use_as_traction = true
-		$VehicleWheel_Right.use_as_traction = false
-		throttle_val = 1.0
+		throttle_val = right()
 	
 	engine_force = throttle_val * MAX_ENGINE_FORCE
 	brake = brake_val * MAX_BRAKE_FORCE
@@ -65,3 +56,36 @@ func _physics_process(delta):
 			steer_angle = steer_target
 	
 	steering = steer_angle
+	
+	if Input.is_action_pressed("ui_accept"):
+		elevate_shovel(delta)
+	elif Input.is_action_pressed("ui_decline"):
+		descend_shovel(delta)
+
+func forward() -> float:
+	$VehicleWheel_Left.use_as_traction = true
+	$VehicleWheel_Right.use_as_traction = true
+	return 1.0
+
+func backwards() -> float:
+	$VehicleWheel_Left.use_as_traction = true
+	$VehicleWheel_Right.use_as_traction = true
+	return -1.0
+
+func left() -> float:
+	$VehicleWheel_Left.use_as_traction = true
+	$VehicleWheel_Right.use_as_traction = false
+	return 1.0
+
+func right() -> float:
+	$VehicleWheel_Left.use_as_traction = false
+	$VehicleWheel_Right.use_as_traction = true
+	return 1.0
+
+func elevate_shovel(delta: float) -> void:
+	if $RobotShovel.rotation.z > -PI/6:
+		$RobotShovel.rotate_z(-delta)
+		
+func descend_shovel(delta: float) -> void:
+		if $RobotShovel.rotation.z < 0:
+			$RobotShovel.rotate_z(delta)
