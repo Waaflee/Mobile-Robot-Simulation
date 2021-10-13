@@ -20,3 +20,4 @@ use_as_traction = true
 
 [node name="VehicleWheel_Left" type="VehicleWheel" parent="Robotvehicle" index="4"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.265463, 1.1575 )
+use_as_traction = true

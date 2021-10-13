@@ -1,7 +1,5 @@
 extends VehicleBody
 
-export(NodePath) var PATH_FOLLOW
-onready var path_follow: Spatial = get_node(PATH_FOLLOW)
 ############################################################
 # behaviour values
 
@@ -36,15 +34,22 @@ func _physics_process(delta):
 	
 	# overrules for keyboard
 	if Input.is_action_pressed("ui_up"):
+		$VehicleWheel_Left.use_as_traction = true
+		$VehicleWheel_Right.use_as_traction = true
 		throttle_val = 1.0
 	if Input.is_action_pressed("ui_down"):
+		$VehicleWheel_Left.use_as_traction = true
+		$VehicleWheel_Right.use_as_traction = true
 #		brake_val = 1.0
 		throttle_val = -1.0
 	if Input.is_action_pressed("ui_left"):
-		steer_val = 1.0
+		$VehicleWheel_Left.use_as_traction = false
+		$VehicleWheel_Right.use_as_traction = true
+		throttle_val = 1.0
 	elif Input.is_action_pressed("ui_right"):
-		steer_val = -1.0
-	
+		$VehicleWheel_Left.use_as_traction = true
+		$VehicleWheel_Right.use_as_traction = false
+		throttle_val = 1.0
 	
 	engine_force = throttle_val * MAX_ENGINE_FORCE
 	brake = brake_val * MAX_BRAKE_FORCE
