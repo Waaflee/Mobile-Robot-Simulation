@@ -1,10 +1,27 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/Robot/Robot.glb" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Robotvehicle.gd" type="Script" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 0.614919, 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Patroll"
+length = 31.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:STATE")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 6, 7, 8, 8.5, 14.1, 14.2, 15.5, 16.5, 21.5, 22.5, 24.5, 25.5, 30.5, 30.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 1, 0, 0, 3, 3, 0, 0, 1, 1, 0, 0, 4, 4, 0 ]
+}
 
 [node name="Robot" instance=ExtResource( 1 )]
 
@@ -16,11 +33,16 @@ MAX_ENGINE_FORCE = 100.0
 shape = SubResource( 1 )
 
 [node name="VehicleWheel_Right" type="VehicleWheel" parent="Robotvehicle" index="3"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.265463, -1.17976 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.265, -1.2 )
 use_as_traction = true
 wheel_radius = 0.51
 
 [node name="VehicleWheel_Left" type="VehicleWheel" parent="Robotvehicle" index="4"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.265463, 1.1575 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.265, 1.2 )
 use_as_traction = true
 wheel_radius = 0.51
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+root_node = NodePath("../Robotvehicle")
+autoplay = "Patroll"
+anims/Patroll = SubResource( 2 )

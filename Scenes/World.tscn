@@ -35,7 +35,7 @@ light_energy = 0.5
 shadow_enabled = true
 
 [node name="Robot" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.423707, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3379, 0.423707, 0 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1, -5.65453e-08, 6.66736e-08, 0, 0.762657, 0.646803, -8.74228e-08, 0.646803, -0.762657, 0.063, 14.574, -30.465 )

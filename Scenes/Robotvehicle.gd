@@ -2,6 +2,7 @@ extends VehicleBody
 
 ############################################################
 # behaviour values
+export var STATE = 0
 
 export var MAX_ENGINE_FORCE = 200.0
 export var MAX_BRAKE_FORCE = 5.0
@@ -42,6 +43,17 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("ui_right"):
 		throttle_val = right()
 	
+	if STATE == 0:
+		throttle_val = 0.0
+	elif STATE == 1:
+		throttle_val = forward()
+	elif STATE == 2:
+		throttle_val = backwards()
+	elif STATE == 3:
+		throttle_val = left()
+	elif STATE == 4:
+		throttle_val = right()
+	
 	engine_force = throttle_val * MAX_ENGINE_FORCE
 	brake = brake_val * MAX_BRAKE_FORCE
 	
@@ -61,6 +73,7 @@ func _physics_process(delta):
 		elevate_shovel(delta)
 	elif Input.is_action_pressed("ui_decline"):
 		descend_shovel(delta)
+		
 
 func forward() -> float:
 	$VehicleWheel_Left.use_as_traction = true
