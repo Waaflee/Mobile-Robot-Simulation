@@ -30,6 +30,9 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 MAX_ENGINE_FORCE = 100.0
 
+[node name="Robotvehicle" parent="Robotvehicle" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00493228, 0, 0.0041976 )
+
 [node name="CollisionShape" type="CollisionShape" parent="Robotvehicle" index="2"]
 shape = SubResource( 1 )
 

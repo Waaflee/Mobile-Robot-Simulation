@@ -8,11 +8,25 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Model",
+"language": "GDScript",
+"path": "res://Model.gd"
+} ]
+_global_script_class_icons={
+"Model": ""
+}
+
 [application]
 
 config/name="Mobile Robot Simulator"
 run/main_scene="res://Scenes/World.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://Global.gd"
 
 [input]
 

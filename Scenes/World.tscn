@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Grass.tres" type="Material" id=2]
+[ext_resource path="res://Scenes/World.gd" type="Script" id=3]
 
 [sub_resource type="PlaneMesh" id=1]
 material = ExtResource( 2 )
@@ -12,9 +13,24 @@ subdivide_depth = 5
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 50, 1, 50 )
 
-[node name="World" type="Spatial"]
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.235294, 0.356863, 0.529412, 0.498039 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://assets/fonts/SourceCodePro-Bold.otf"
+
+[sub_resource type="DynamicFont" id=5]
+size = 12
+font_data = SubResource( 4 )
+
+[node name="World" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Floor" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0444536, 0.0570803, 0.0141354 )
 mesh = SubResource( 1 )
 material/0 = null
@@ -22,9 +38,9 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+[node name="StaticBody" type="StaticBody" parent="Floor"]
 
-[node name="CollisionShape2" type="CollisionShape" parent="MeshInstance/StaticBody"]
+[node name="CollisionShape2" type="CollisionShape" parent="Floor/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 shape = SubResource( 2 )
 
@@ -41,3 +57,166 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3379, 0.423707, 0 )
 transform = Transform( -1, -5.65453e-08, 6.66736e-08, 0, 0.762657, 0.646803, -8.74228e-08, 0.646803, -0.762657, 0.063, 14.574, -30.465 )
 current = true
 fov = 50.0
+
+[node name="Panel" type="Panel" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -170.0
+margin_right = 371.0
+margin_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = -10.0
+margin_bottom = -5.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 11.0
+margin_right = 351.0
+margin_bottom = 27.0
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_right = 63.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Torque r:"
+
+[node name="Torque_Right" type="Label" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_left = 67.0
+margin_right = 74.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "0"
+
+[node name="HBoxContainer_2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 31.0
+margin_right = 351.0
+margin_bottom = 47.0
+
+[node name="Label_2" type="Label" parent="Panel/VBoxContainer/HBoxContainer_2"]
+margin_right = 63.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Torque l:"
+
+[node name="Torque_Left" type="Label" parent="Panel/VBoxContainer/HBoxContainer_2"]
+margin_left = 67.0
+margin_right = 74.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "0"
+
+[node name="HBoxContainer_3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 51.0
+margin_right = 351.0
+margin_bottom = 67.0
+
+[node name="Label_3" type="Label" parent="Panel/VBoxContainer/HBoxContainer_3"]
+margin_right = 91.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Torque Brazo:"
+
+[node name="Torque_Shovel" type="Label" parent="Panel/VBoxContainer/HBoxContainer_3"]
+margin_left = 95.0
+margin_right = 102.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "0"
+
+[node name="HBoxContainer_4" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 71.0
+margin_right = 351.0
+margin_bottom = 87.0
+
+[node name="Label_4" type="Label" parent="Panel/VBoxContainer/HBoxContainer_4"]
+margin_right = 84.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Velocidad r:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Speed_r" type="Label" parent="Panel/VBoxContainer/HBoxContainer_4"]
+margin_left = 88.0
+margin_right = 95.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer_6" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 91.0
+margin_right = 351.0
+margin_bottom = 107.0
+
+[node name="Label_4" type="Label" parent="Panel/VBoxContainer/HBoxContainer_6"]
+margin_right = 84.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Velocidad l:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Speed_l" type="Label" parent="Panel/VBoxContainer/HBoxContainer_6"]
+margin_left = 88.0
+margin_right = 95.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer_5" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 111.0
+margin_right = 351.0
+margin_bottom = 127.0
+
+[node name="Label_5" type="Label" parent="Panel/VBoxContainer/HBoxContainer_5"]
+margin_right = 98.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Aceleración r:"
+
+[node name="Acceleration_r" type="Label" parent="Panel/VBoxContainer/HBoxContainer_5"]
+margin_left = 102.0
+margin_right = 109.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "0"
+
+[node name="HBoxContainer_7" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 131.0
+margin_right = 351.0
+margin_bottom = 147.0
+
+[node name="Label_5" type="Label" parent="Panel/VBoxContainer/HBoxContainer_7"]
+margin_right = 98.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "Aceleración l:"
+
+[node name="Acceleration_l" type="Label" parent="Panel/VBoxContainer/HBoxContainer_7"]
+margin_left = 102.0
+margin_right = 109.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 5 )
+text = "0"
